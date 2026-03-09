@@ -11,7 +11,6 @@ import json
 import logging
 import sys
 from contextlib import asynccontextmanager
-from datetime import datetime, timezone
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
@@ -167,7 +166,7 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             # Keep connection alive; handle client messages if needed
-            data = await websocket.receive_text()
+            await websocket.receive_text()
             # Could handle client commands here (e.g., subscribe to specific nodes)
     except WebSocketDisconnect:
         connected_clients.discard(websocket)

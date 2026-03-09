@@ -274,10 +274,9 @@ function TrafficArcs({
 }) {
   const groupRef = useRef<THREE.Group>(null);
 
-  const { arcs, arcColors } = useMemo(() => {
+  const lineObjects = useMemo(() => {
     const nodeMap = new Map(nodes.map((n) => [n.id, n]));
-    const arcGeometries: THREE.BufferGeometry[] = [];
-    const colors: THREE.Color[] = [];
+    const lines: THREE.Line[] = [];
 
     // Limit arcs for performance
     const visibleRoutes = routes.filter((r) => r.active).slice(0, 400);
@@ -293,8 +292,6 @@ function TrafficArcs({
       const points = curve.getPoints(ARC_SEGMENTS);
       const geo = new THREE.BufferGeometry().setFromPoints(points);
 
-      arcGeometries.push(geo);
-
       // Color by utilization
       const util = route.utilization_pct;
       const color =
@@ -304,25 +301,24 @@ function TrafficArcs({
           ? new THREE.Color(0xf59e0b)
           : new THREE.Color(0x3b82f6);
       color.multiplyScalar(0.5);
-      colors.push(color);
+
+      const mat = new THREE.LineBasicMaterial({
+        color,
+        transparent: true,
+        opacity: 0.35,
+      });
+      lines.push(new THREE.Line(geo, mat));
     }
 
-    return { arcs: arcGeometries, arcColors: colors };
+    return lines;
   }, [routes, nodes]);
 
-  if (arcs.length === 0) return null;
+  if (lineObjects.length === 0) return null;
 
   return (
     <group ref={groupRef}>
-      {arcs.map((geo, i) => (
-        <line key={i} geometry={geo}>
-          <lineBasicMaterial
-            color={arcColors[i]}
-            transparent
-            opacity={0.35}
-            linewidth={1}
-          />
-        </line>
+      {lineObjects.map((obj, i) => (
+        <primitive key={i} object={obj} />
       ))}
     </group>
   );

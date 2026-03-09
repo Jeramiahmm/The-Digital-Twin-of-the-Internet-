@@ -206,7 +206,6 @@ class IncidentDetector:
         nodes: list[InfrastructureNode], radius_km: float
     ) -> list[list[InfrastructureNode]]:
         """Simple greedy geographic clustering."""
-        import math
 
         remaining = list(nodes)
         clusters: list[list[InfrastructureNode]] = []

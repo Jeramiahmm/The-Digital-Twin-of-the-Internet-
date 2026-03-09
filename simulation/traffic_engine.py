@@ -14,7 +14,6 @@ from datetime import datetime, timezone
 from typing import Optional
 
 from backend.models.schemas import (
-    GeoLocation,
     Incident,
     IncidentSeverity,
     InfrastructureNode,
