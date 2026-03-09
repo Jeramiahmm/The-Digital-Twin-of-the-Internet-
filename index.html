@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Twin of the Internet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Digital Twin of the Internet</h1>
+    <p class="subtitle">Real-time visualization of global internet infrastructure</p>
+  </header>
+
+  <div class="controls">
+    <button id="btn-add" title="Add Node">+ Add Node</button>
+    <button id="btn-pulse" title="Simulate Traffic">Pulse Traffic</button>
+    <button id="btn-reset" title="Reset View">Reset</button>
+    <div class="stats">
+      <span id="stat-nodes">Nodes: 0</span>
+      <span id="stat-links">Links: 0</span>
+      <span id="stat-packets">Packets: 0</span>
+    </div>
+  </div>
+
+  <main>
+    <canvas id="network-canvas"></canvas>
+    <div id="tooltip" class="tooltip hidden"></div>
+  </main>
+
+  <aside id="info-panel" class="info-panel hidden">
+    <button id="panel-close">&times;</button>
+    <h2 id="panel-title">Node Info</h2>
+    <div id="panel-body"></div>
+  </aside>
+
+  <footer>
+    <p>Digital Twin of the Internet &mdash; Interactive Network Topology Visualizer</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
